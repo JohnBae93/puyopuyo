@@ -7,7 +7,15 @@
 #include "algorithm.h"
 #include "ui.h"
 
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    int n;
+    Game game;
+    cout << game << endl;
+
+    game.Bomb();
+    cout << game << endl;
+
+    cin >> n ;
     return 0;
 }

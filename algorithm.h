@@ -5,9 +5,9 @@
 #ifndef TERM_ALGORITHM_H
 #define TERM_ALGORITHM_H
 
-class block {
+class Block {
 
-	asfsndg
+
 
 };
 
