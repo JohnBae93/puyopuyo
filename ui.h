@@ -26,6 +26,8 @@ public:
     void AddNextBlock(Block block);
     int Bomb();
     void Down();
+	void GetInstruction(char instruction);
+	void DownNewBlock();
     friend ostream &operator<<(ostream &os, Game &map);
     ~Game();
 };

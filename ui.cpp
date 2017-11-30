@@ -87,19 +87,68 @@ int Game::Bomb() {
 void Game::Down() {
 	for (int i = 0; i < WIDTH; i++)
 	{
-		for (int j = HEIGHT - 1; j >= 0; j--)
+		for (int j = 0; j < HEIGHT; j++)
 		{
 			if (map[j][i] == 5) {
-				for (int k = j; k < HEIGHT; k++)
+				for (int k = j; k >= 0; k--)
 				{	
-					if (i == WIDTH) 
+					if (k == 0) 
 						map[k][i] = 0;
 					else
-						map[k][i] = map[k + 1][i];
+						map[k][i] = map[k - 1][i];
 				}
 			}
 		}
 	}
+}
+
+void Game::GetInstruction(char instruction) {
+	if (!new_block.Action(instruction)) {
+		this->DownNewBlock();
+		new_block = next_block;
+	}
+		
+}
+
+void Game::DownNewBlock() {
+	int first_x = new_block.FirstX();
+	int first_y = new_block.FirstY();
+	int first_color = new_block.FirstColor();
+	int second_x = new_block.SecondX();
+	int second_y = new_block.SecondY();
+	int second_color = new_block.SecondColor();
+
+	if (first_y == second_y) {
+		int bottom = first_x > second_x ? 0 : 1; // first bottom: 0, second bottom : 1
+		for (int i = 0; i <= HEIGHT; i++)
+		{
+			if ((i == HEIGHT || map[i][first_y] != 0) && bottom == 0) { // first block at bottom
+				map[i - 1][first_y] = first_color;
+				map[i - 2][first_y] = second_color;
+				break;
+			}
+			else if ((i == HEIGHT || map[i][first_y] != 0 ) && bottom == 1) { // second block at bottom
+				map[i - 1][first_y] = second_color;
+				map[i - 2][first_y] = first_color;
+				break;
+			}
+		}
+	}
+	else {
+		int first = 0, second = 0;
+		for (int i = 0; i <= HEIGHT; i++)
+		{
+			if (first == 0 && (i == HEIGHT || map[i][first_y] != 0)) {
+				map[i - 1][first_y] = first_color;
+				first = 1;
+			}
+			if (second == 0 && (i == HEIGHT || map[i][second_y] != 0)) {
+				map[i - 1][second_y] = second_color;
+				second = 1;
+			}
+		}
+	}
+	
 }
 
 ostream &operator<<(ostream &os, Game &game) {
@@ -116,25 +165,28 @@ ostream &operator<<(ostream &os, Game &game) {
 
 	for (int i = 0; i < WIDTH; i++)
 	{
+		os << " ";
 		if (first_x == 0 && first_y == i)
 			os << first_color;
-		else if (first_y == 0 && first_y == i)
+		else if (second_x == 0 && second_y == i)
 			os << second_color;
 		else
 			os << " ";
 	}
-    os << "|                     |";
+    os << " |                     |";
     os << endl;
+	os << "|";
 	for (int i = 0; i < WIDTH; i++)
 	{
+		os << " ";
 		if (first_x == 1 && first_y == i)
 			os << first_color;
-		else if (first_y == 1 && first_y == i)
+		else if (second_x == 1 && second_y == i)
 			os << second_color;
 		else
 			os << " ";
 	}
-    os << "|                     |";
+    os << " |                     |";
     os << endl;
     for (int i = 0; i < HEIGHT; ++i) {
         os << "| ";
@@ -160,7 +212,8 @@ ostream &operator<<(ostream &os, Game &game) {
                 os << endl;
                 break;
             case 6:
-                os << "         " << "            |";
+                os << "         "<< game.next_block.FirstColor() << " " 
+					<< game.next_block.SecondColor() << "         |";
                 os << endl;
                 break;
             case 9:
@@ -168,11 +221,11 @@ ostream &operator<<(ostream &os, Game &game) {
                 os << endl;
                 break;
             case 10:
-                os << "   w: turn, a: left, " << "|";
+                os << "   a: left, d: right," << "|";
                 os << endl;
                 break;
             case 11:
-                os << "   d: right, s: down " << "|";
+                os << "   w: turn, s: down  " << "|";
                 os << endl;
                 break;
             default:

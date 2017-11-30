@@ -11,6 +11,7 @@
 using namespace std;
 
 int main() {
+	char inst;
 	while (1) {
 		string option;
 		cout << "1: start game" << endl;
@@ -59,14 +60,37 @@ int main() {
 								game.AddBlock(current);
 								game.AddNextBlock(next);
 
+								
+								do {
+									cout << game << endl;
+									cout << "INPUT instructino: ";
+									cin >> inst;
+									if (inst != 'w' && inst != 'a' && inst != 's' && inst != 'd') {
+										cout << "\nPlsease valid instruction" << endl;
+										continue;
+									}
+									game.GetInstruction(inst);
+
+									while (game.Bomb()) {
+										Sleep(1000);
+										system("CLS");
+										cout << game << endl;
+										game.Down();
+										Sleep(1000);
+										system("CLS");
+										cout << game << endl;
+									}
+									
+									system("CLS");
+								} while (inst != 's');
 								cout << game << endl;
-								if (game.Bomb()) {
+												
+								/*if (game.Bomb()) {
 									Sleep(1000);
 									cout << game << endl;
 								}
 								game.Down();
-								Sleep(1000);
-								cout << game << endl;
+								*/
 							}									
 							
 						}
