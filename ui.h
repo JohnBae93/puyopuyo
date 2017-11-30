@@ -24,7 +24,7 @@ public:
     Game();
     void AddBlock(Block *block);
     void AddNextBlock(Block block);
-    void Bomb();
+    int Bomb();
     void Down();
     friend ostream &operator<<(ostream &os, const Game &map);
     ~Game();

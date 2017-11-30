@@ -86,8 +86,13 @@ ostream& operator<<(ostream& os, Block& block) {
 
 
 Blocks::Blocks(int stage) {
+	string fname = "stage" + to_string(stage) + ".txt";
 	ifstream inFile;
-	inFile.open("stage" + to_string(stage) + ".txt");
+	inFile.open(fname);
+	if (!inFile.is_open()) {
+		cout << fname << " not in directory" << endl;
+		throw -1;
+	}
 	int i = 0;
 	string temp;
 	while (!inFile.eof()) {

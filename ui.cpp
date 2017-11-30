@@ -16,29 +16,33 @@ Game::Game() {
     combo = 0;
     score = 0;
     block_left = 36;
-    map[11][0] = 1;
-    map[11][1] = 1;
-    map[11][2] = 1;
-    map[11][3] = 1;
+	map[11][0] = 1;
+	map[10][0] = 1;
+	map[9][0] = 1;
+	map[8][0] = 1;
+
 }
 
 void Game::AddBlock(Block *block) {
     new_block = block;
+	block_left--;
 }
 
 void Game::AddNextBlock(Block block) {
     next_block = block;
 }
 
-void Game::Bomb() {
+int Game::Bomb() {
     vector<vector<int> > queue;  // x, y, color
     vector<int> tmp;
     tmp.resize(3);
     vector<int> pop;
     pop.resize(3);
     int count;
+	int isBomb = 0;
+	int newx, newy;
 
-    vector<vector<int> >::iterator front ;
+	int front = 0;
 
     for (int i = 0; i < HEIGHT; ++i) {
         for (int j = 0; j < WIDTH; ++j) {
@@ -48,34 +52,55 @@ void Game::Bomb() {
 
                 map[i][j] = 5;
                 count = 1;
-                front = queue.begin();
-                while (!queue.empty()) {
-                    pop = *front;
-
+				front = 0;
+                while (front != queue.size()) {
+                    pop = queue[front];
+					front++;
                     for (int k = 0; k < 4; ++k) {
-                        if(map[i + mx[k]][j + my[k]] == pop[2]){
-                            tmp[0] = i + mx[k]; tmp[1] = j +  my[k]; tmp[2] = pop[2];
-                            queue.push_back(tmp);
+						newx = pop[0] + mx[k]; newy = pop[1] + my[k];
+						if (newx >= 0 && newx < HEIGHT && newy >= 0 && newy < WIDTH) {
+							if (map[newx][newy] == pop[2]) {
+								tmp[0] = newx; tmp[1] = newy; tmp[2] = pop[2];
+								queue.push_back(tmp);
 
-                            map[i + mx[k]][j + my[k]] = 5;
-                            count ++;
-                        }
+								map[newx][newy] = 5;
+								count++;
+							}
+						}
                     }
-                    front++;
                 }
                 if(count < 4) {
-                    for (front = queue.begin(); front != queue.end() ; ++front) {
-                        map[(*front)[0]][(*front)[1]] = (*front)[2];
+                    for (int k = 0; k < count ; ++k) {
+                        map[queue[k][0]][queue[k][1]] = queue[k][2];
                     }
-                }
+				}
+				else {
+					isBomb = 1;
+				}
+				queue.clear();
             }
 
         }
     }
+	return isBomb;
 }
 
 void Game::Down() {
-
+	for (int i = 0; i < WIDTH; i++)
+	{
+		for (int j = HEIGHT - 1; j >= 0; j--)
+		{
+			if (map[j][i] == 5) {
+				for (int k = j; k < HEIGHT; k++)
+				{	
+					if (i == WIDTH) 
+						map[k][i] = 0;
+					else
+						map[k][i] = map[k + 1][i];
+				}
+			}
+		}
+	}
 }
 
 ostream &operator<<(ostream &os, const Game &game) {
