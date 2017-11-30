@@ -155,7 +155,7 @@ Block Blocks::Current() {
 Block Blocks::Next() {
 	current += 1;
 	cur->GetThis() = nex->GetThis();
-	nex->SetBlock(puyos[current + 1][0], puyos[current + 1][1]);
+	nex->SetBlock(puyos[current][0], puyos[current][1]); 
 	//오버로딩 예시
-	return *cur;
+	return *nex;
 }

@@ -100,7 +100,7 @@ void Game::Down(int _combo) {
 	score += count * _combo;
 	combo = _combo;
 	if (combo > max_combo)
-		max_combo = 0;
+		max_combo = combo;
 }
 
 void Game::GetInstruction(char instruction) {
