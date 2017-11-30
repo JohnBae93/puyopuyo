@@ -52,16 +52,19 @@ int main() {
 							int stage_num = opt - '0';
 							Game game(stage_num);
 							Blocks stage(stage_num); // 블록들을 file에서 읽어온다
-							for (size_t i = 0; i < 36; i++)
+							Block current;
+							Block next;
+							for (size_t i = 0; i < 2; i++)
 							{
-								Block current = stage.Current();
-								Block next = stage.Next();
+								current = stage.Current();
+								if(i != 35)
+									next = stage.Next();
 
 								game.AddBlock(current);
 								game.AddNextBlock(next);
 
-								
 								do {
+									system("CLS");
 									cout << game << endl;
 									cout << "INPUT instructino: ";
 									cin >> inst;
@@ -71,28 +74,24 @@ int main() {
 									}
 									game.GetInstruction(inst);
 
-									while (game.Bomb()) {
-										Sleep(1000);
-										system("CLS");
-										cout << game << endl;
-										game.Down();
-										Sleep(1000);
-										system("CLS");
-										cout << game << endl;
-									}
-									
 									system("CLS");
+									cout << game << endl;
 								} while (inst != 's');
-								cout << game << endl;
-												
-								/*if (game.Bomb()) {
+
+								// combo bomb
+								int combo = 1;
+								while (game.Bomb()) {
 									Sleep(1000);
+									system("CLS");
+									cout << game << endl;
+									game.Down(combo++);
+									Sleep(1000);
+									system("CLS");
 									cout << game << endl;
 								}
-								game.Down();
-								*/
-							}									
-							
+								cout << game << endl;
+							}
+							continue;	
 						}
 						catch (string fname) {
 							cout << "[Error] File '" << fname << "' is not in directory!" << endl;

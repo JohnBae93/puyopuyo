@@ -133,7 +133,6 @@ Block Blocks::Current() {
 }
 Block Blocks::Next() {
 	current += 1;
-	cur = nex;
-	nex->SetBlock(puyos[current + 1][0], puyos[current + 1][1]);
+	nex->SetBlock(puyos[current][0], puyos[current][1]);
 	return *nex;
 }
