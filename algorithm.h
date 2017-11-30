@@ -16,6 +16,7 @@ class Block{
 	int second_puyo[3]; //y, x, color
 	
 public:
+	Block();
 	Block(int first, int second); //get color of blocks.
 	int Action(char command); //get command and move block(1 if rotate, move left, move right && 0 if down)
 	void Rotate();
