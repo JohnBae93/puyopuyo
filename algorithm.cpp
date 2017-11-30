@@ -78,7 +78,14 @@ int Block::FirstColor() { return first_puyo[2]; }
 int Block::SecondX() { return second_puyo[1]; }
 int Block::SecondY() { return second_puyo[0]; }
 int Block::SecondColor() { return second_puyo[2]; }
-
+void Block::SetBlock(int first, int second) {
+	first_puyo[0] = 2;
+	first_puyo[1] = 0;
+	first_puyo[2] = first;
+	second_puyo[0] = 3;
+	second_puyo[1] = 0;
+	second_puyo[2] = second;
+}
 ostream& operator<<(ostream& os, Block& block) {
 	os << to_string(block.FirstColor()) + " " + to_string(block.SecondColor());
 	return os;
@@ -99,14 +106,21 @@ Blocks::Blocks(int stage) {
 		puyos[i++][1] = temp[2] - '0';
 	}
 	current = 0;
+	cur = new Block(puyos[current][0], puyos[current][1]);
+	nex = new Block(puyos[current + 1][0], puyos[current + 1][1]);
+}
+
+Blocks::~Blocks() {
+	delete cur;
+	delete nex;
 }
 
 Block Blocks::Current() {
-	Block block(puyos[current][0], puyos[current][1]);
-	return block;
+	return *cur;
 }
 Block Blocks::Next() {
-	Block block(puyos[current + 1][0], puyos[current + 1][1]);
 	current += 1;
-	return block;
+	cur = nex;
+	nex->SetBlock(puyos[current + 1][0], puyos[current + 1][1]);
+	return *nex;
 }

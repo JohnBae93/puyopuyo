@@ -28,6 +28,7 @@ public:
 	int SecondX();
 	int SecondY();
 	int SecondColor();
+	void SetBlock(int first, int second);
 	friend ostream& operator<<(ostream& os, Block& block);;
 };
 
@@ -35,9 +36,12 @@ class Blocks {
 	int number = 36;
 	int puyos[50][2];
 	int current;
+	Block *cur;
+	Block *nex;
 
 public:
 	Blocks(int stage);
+	~Blocks();
 	Block Current(); // get (current+n)'th block
 	Block Next(); //return current block and current+=1
 };
