@@ -30,7 +30,7 @@ public:
 	int SecondY() const;
 	int SecondColor() const;
 	void SetBlock(int first, int second);
-	void SetBlock(Block* A);
+	void SetBlock(Block A);
 	Block GetThis();
 	friend ostream& operator<<(ostream& os, Block& block);;
 };

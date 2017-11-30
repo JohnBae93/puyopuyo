@@ -106,13 +106,8 @@ void Block::SetBlock(int first, int second) {
 	second_puyo[2] = second;
 }
 
-void Block::SetBlock(Block*A) {
-	first_puyo[0] = 2;
-	first_puyo[1] = 0;
-	first_puyo[2] = A->FirstColor();
-	second_puyo[0] = 3;
-	second_puyo[1] = 0;
-	second_puyo[2] = A->SecondColor();
+void Block::SetBlock(Block A) {
+	*this = A;
 }
 
 Block Block::GetThis() {
@@ -154,8 +149,8 @@ Block Blocks::Current() {
 
 Block Blocks::Next() {
 	current += 1;
-	cur->GetThis() = nex->GetThis();
-	nex->SetBlock(puyos[current][0], puyos[current][1]); 
+	cur->SetBlock(*nex);
+	nex->SetBlock(puyos[current + 1][0], puyos[current + 1][1]);
 	//오버로딩 예시
 	return *nex;
 }
