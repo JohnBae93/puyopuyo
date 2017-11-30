@@ -48,24 +48,32 @@ int Block::Action(char command) {
 }
 
 void Block::Rotate() {
-	if (first_puyo[1] == 1) {
-		first_puyo[0] += 1;
-		first_puyo[1] -= 1;
-		return;
-	}
-	if (second_puyo[1] == 1) {
-		second_puyo[0] += 1;
-		second_puyo[1] -= 1;
-		return;
-	}
-	if (first_puyo[0] < second_puyo[0]) {
-		first_puyo[1] += 1;
-		second_puyo[0] -= 1;
-		return;
-	}
-	if (first_puyo[0] > second_puyo[0]) {
+	if (first_puyo[1] == 0 && second_puyo[1] == 0) {
 		second_puyo[1] += 1;
+		first_puyo[0] += 1;
+		return;
+	}
+	if (first_puyo[1] == 0 && second_puyo[1] == 1) {
+		second_puyo[0] -= 1;
+		first_puyo[1] += 1;
+		if (second_puyo[0] < 0) {
+			second_puyo[0] += 1;
+			first_puyo[0] += 1;
+		}
+		return;
+	}
+	if (first_puyo[1] == 1 && second_puyo[1] == 1) {
+		second_puyo[1] -= 1;
 		first_puyo[0] -= 1;
+		return;
+	}
+	if (first_puyo[1] == 1 && second_puyo[1] == 0) {
+		second_puyo[0] += 1;
+		first_puyo[1] -= 1;
+		if (second_puyo[0] > 5) {
+			second_puyo[0] -= 1;
+			first_puyo[0] -= 1;
+		}
 		return;
 	}
 }
@@ -99,6 +107,16 @@ void Block::SetBlock(int first, int second) {
 	second_puyo[1] = 0;
 	second_puyo[2] = second;
 }
+
+void Block::SetBlock(Block*A) {
+	first_puyo[0] = 2;
+	first_puyo[1] = 0;
+	first_puyo[2] = A->FirstColor;
+	second_puyo[0] = 3;
+	second_puyo[1] = 0;
+	second_puyo[2] = A->SecondColor;
+}
+
 ostream& operator<<(ostream& os, Block& block) {
 	os << to_string(block.FirstColor()) + " " + to_string(block.SecondColor());
 	return os;
@@ -133,6 +151,7 @@ Block Blocks::Current() {
 }
 Block Blocks::Next() {
 	current += 1;
-	nex->SetBlock(puyos[current][0], puyos[current][1]);
+	cur->SetBlock(nex);
+	nex->SetBlock(puyos[current + 1][0], puyos[current + 1][1]);
 	return *nex;
 }
