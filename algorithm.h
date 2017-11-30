@@ -38,7 +38,7 @@ class Blocks {
 
 public:
 	Blocks(int stage);
-	Block GetBlock(int n); // get (current+n)'th block
+	Block Current(); // get (current+n)'th block
 	Block Next(); //return current block and current+=1
 };
 

@@ -101,12 +101,12 @@ Blocks::Blocks(int stage) {
 	current = 0;
 }
 
-Block Blocks::GetBlock(int n) {
-	Block block(puyos[current + n][0], puyos[current + n][1]);
+Block Blocks::Current() {
+	Block block(puyos[current][0], puyos[current][1]);
 	return block;
 }
 Block Blocks::Next() {
-	Block block(puyos[current][0], puyos[current][1]);
+	Block block(puyos[current + 1][0], puyos[current + 1][1]);
 	current += 1;
 	return block;
 }

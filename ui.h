@@ -18,15 +18,15 @@ private:
     int combo;
     int score;
     int block_left;
-    Block *new_block;
+    Block new_block;
     Block next_block;
 public:
-    Game();
-    void AddBlock(Block *block);
+    Game(int stage);
+    void AddBlock(Block block);
     void AddNextBlock(Block block);
     int Bomb();
     void Down();
-    friend ostream &operator<<(ostream &os, const Game &map);
+    friend ostream &operator<<(ostream &os, Game &map);
     ~Game();
 };
 

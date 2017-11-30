@@ -6,13 +6,13 @@
 int mx[4] = {0, -1, 0, 1};
 int my[4] = {1, 0, -1, 0};
 
-Game::Game() {
+Game::Game(int _stage) {
     for (int i = 0; i < HEIGHT; ++i) {
         for (int j = 0; j < WIDTH; ++j) {
             map[i][j] = 0;
         }
     }
-    stage = 0;
+    stage = _stage;
     combo = 0;
     score = 0;
     block_left = 36;
@@ -23,7 +23,7 @@ Game::Game() {
 
 }
 
-void Game::AddBlock(Block *block) {
+void Game::AddBlock(Block block) {
     new_block = block;
 	block_left--;
 }
@@ -42,8 +42,7 @@ int Game::Bomb() {
 	int isBomb = 0;
 	int newx, newy;
 
-	int front = 0;
-
+	int front;
     for (int i = 0; i < HEIGHT; ++i) {
         for (int j = 0; j < WIDTH; ++j) {
             if (map[i][j] > 0 && map[i][j] < 5) {
@@ -103,13 +102,39 @@ void Game::Down() {
 	}
 }
 
-ostream &operator<<(ostream &os, const Game &game) {
+ostream &operator<<(ostream &os, Game &game) {
     os << " -------------";
     os << " -------STAGE " << game.stage << "------- ";
     os << endl;
-    os << "|             |" << "                     |";
+	os << "|";
+	int first_x = game.new_block.FirstX();
+	int first_y = game.new_block.FirstY();
+	int first_color = game.new_block.FirstColor();
+	int second_x = game.new_block.SecondX();
+	int second_y = game.new_block.SecondY();
+	int second_color = game.new_block.SecondColor();
+
+	for (int i = 0; i < WIDTH; i++)
+	{
+		if (first_x == 0 && first_y == i)
+			os << first_color;
+		else if (first_y == 0 && first_y == i)
+			os << second_color;
+		else
+			os << " ";
+	}
+    os << "|                     |";
     os << endl;
-    os << "|     2 3     |" << "                     |";
+	for (int i = 0; i < WIDTH; i++)
+	{
+		if (first_x == 1 && first_y == i)
+			os << first_color;
+		else if (first_y == 1 && first_y == i)
+			os << second_color;
+		else
+			os << " ";
+	}
+    os << "|                     |";
     os << endl;
     for (int i = 0; i < HEIGHT; ++i) {
         os << "| ";
@@ -135,7 +160,7 @@ ostream &operator<<(ostream &os, const Game &game) {
                 os << endl;
                 break;
             case 6:
-                os << "      1 2" << "            |";
+                os << "         " << "            |";
                 os << endl;
                 break;
             case 9:
