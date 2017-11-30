@@ -48,24 +48,32 @@ int Block::Action(char command) {
 }
 
 void Block::Rotate() {
-	if (first_puyo[1] == 1) {
-		first_puyo[0] += 1;
-		first_puyo[1] -= 1;
-		return;
-	}
-	if (second_puyo[1] == 1) {
-		second_puyo[0] += 1;
-		second_puyo[1] -= 1;
-		return;
-	}
-	if (first_puyo[0] < second_puyo[0]) {
-		first_puyo[1] += 1;
-		second_puyo[0] -= 1;
-		return;
-	}
-	if (first_puyo[0] > second_puyo[0]) {
+	if (first_puyo[1] == 0 && second_puyo[1] == 0) {
 		second_puyo[1] += 1;
+		first_puyo[0] += 1;
+		return;
+	}
+	if (first_puyo[1] == 0 && second_puyo[1] == 1) {
+		second_puyo[0] -= 1;
+		first_puyo[1] += 1;
+		if (second_puyo[0] < 0) {
+			second_puyo[0] += 1;
+			first_puyo[0] += 1;
+		}
+		return;
+	}
+	if (first_puyo[1] == 1 && second_puyo[1] == 1) {
+		second_puyo[1] -= 1;
 		first_puyo[0] -= 1;
+		return;
+	}
+	if (first_puyo[1] == 1 && second_puyo[1] == 0) {
+		second_puyo[0] += 1;
+		first_puyo[1] -= 1;
+		if (second_puyo[0] > 5) {
+			second_puyo[0] -= 1;
+			first_puyo[0] -= 1;
+		}
 		return;
 	}
 }
