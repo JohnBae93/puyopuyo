@@ -12,7 +12,6 @@ Block::Block() {
 	second_puyo[1] = 0;
 	second_puyo[2] = 0;
 }
-
 Block::Block(int first, int second) {
 	first_puyo[0] = 2;
 	first_puyo[1] = 0;
@@ -21,7 +20,6 @@ Block::Block(int first, int second) {
 	second_puyo[1] = 0;
 	second_puyo[2] = second;
 }
-
 Block::Block(const Block &A) {
 	first_puyo[0] = A.FirstY();
 	first_puyo[1] = A.FirstX();
@@ -98,7 +96,7 @@ int Block::FirstColor() const { return first_puyo[2]; }
 int Block::SecondX() const { return second_puyo[1]; }
 int Block::SecondY() const { return second_puyo[0]; }
 int Block::SecondColor() const { return second_puyo[2]; }
-
+//const 예시 -> 복사 생성자 사용하기 위해서
 void Block::SetBlock(int first, int second) {
 	first_puyo[0] = 2;
 	first_puyo[1] = 0;
@@ -115,6 +113,10 @@ void Block::SetBlock(Block*A) {
 	second_puyo[0] = 3;
 	second_puyo[1] = 0;
 	second_puyo[2] = A->SecondColor();
+}
+
+Block Block::GetThis() {
+	return *this;
 }
 
 ostream& operator<<(ostream& os, Block& block) {
@@ -149,9 +151,11 @@ Blocks::~Blocks() {
 Block Blocks::Current() {
 	return *cur;
 }
+
 Block Blocks::Next() {
 	current += 1;
-	cur->SetBlock(nex);
+	cur->GetThis() = nex->GetThis();
 	nex->SetBlock(puyos[current + 1][0], puyos[current + 1][1]);
+	//오버로딩 예시
 	return *cur;
 }
