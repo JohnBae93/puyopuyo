@@ -18,16 +18,17 @@ class Block{
 public:
 	Block();
 	Block(int first, int second); //get color of blocks.
+	Block(const Block &A);
 	int Action(char command); //get command and move block(1 if rotate, move left, move right && 0 if down)
 	void Rotate();
 	void MoveLeft();
 	void MoveRight();
-	int FirstX();
-	int FirstY();
-	int FirstColor();
-	int SecondX();
-	int SecondY();
-	int SecondColor();
+	int FirstX() const;
+	int FirstY() const;
+	int FirstColor() const;
+	int SecondX() const;
+	int SecondY() const;
+	int SecondColor() const;
 	void SetBlock(int first, int second);
 	friend ostream& operator<<(ostream& os, Block& block);;
 };

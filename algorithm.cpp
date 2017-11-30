@@ -22,6 +22,15 @@ Block::Block(int first, int second) {
 	second_puyo[2] = second;
 }
 
+Block::Block(const Block &A) {
+	first_puyo[0] = A.FirstY();
+	first_puyo[1] = A.FirstX();
+	first_puyo[2] = A.FirstColor();
+	second_puyo[0] = A.SecondY();
+	second_puyo[1] = A.SecondX();
+	second_puyo[2] = A.SecondColor();
+}
+
 int Block::Action(char command) {
 	if (command == 's') {
 		return 0;
@@ -60,24 +69,28 @@ void Block::Rotate() {
 		return;
 	}
 }
+
 void Block::MoveLeft() {
 	if (first_puyo[0] > 0 && second_puyo[0] > 0) {
 		first_puyo[0] -= 1;
 		second_puyo[0] -= 1;
 	}
 }
+
 void Block::MoveRight() {
 	if (first_puyo[0] <5 && second_puyo[0] <5) {
 		first_puyo[0] += 1;
 		second_puyo[0] += 1;
 	}
 }
-int Block::FirstX() { return first_puyo[1]; }
-int Block::FirstY() { return first_puyo[0]; }
-int Block::FirstColor() { return first_puyo[2]; }
-int Block::SecondX() { return second_puyo[1]; }
-int Block::SecondY() { return second_puyo[0]; }
-int Block::SecondColor() { return second_puyo[2]; }
+
+int Block::FirstX() const { return first_puyo[1]; }
+int Block::FirstY() const { return first_puyo[0]; }
+int Block::FirstColor() const { return first_puyo[2]; }
+int Block::SecondX() const { return second_puyo[1]; }
+int Block::SecondY() const { return second_puyo[0]; }
+int Block::SecondColor() const { return second_puyo[2]; }
+
 void Block::SetBlock(int first, int second) {
 	first_puyo[0] = 2;
 	first_puyo[1] = 0;
