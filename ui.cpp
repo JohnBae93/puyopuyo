@@ -15,17 +15,11 @@ Game::Game(int _stage) {
     stage = _stage;
     combo = 0;
     score = 0;
-    block_left = 36;
-	map[11][0] = 1;
-	map[10][0] = 1;
-	map[9][0] = 1;
-	map[8][0] = 1;
-
+    block_left = 1;
 }
 
 void Game::AddBlock(Block block) {
     new_block = block;
-	block_left--;
 }
 
 void Game::AddNextBlock(Block block) {
@@ -84,12 +78,14 @@ int Game::Bomb() {
 	return isBomb;
 }
 
-void Game::Down() {
+void Game::Down(int _combo) {
+	int count = 0;
 	for (int i = 0; i < WIDTH; i++)
 	{
 		for (int j = 0; j < HEIGHT; j++)
 		{
 			if (map[j][i] == 5) {
+				count++;
 				for (int k = j; k >= 0; k--)
 				{	
 					if (k == 0) 
@@ -100,14 +96,17 @@ void Game::Down() {
 			}
 		}
 	}
+	score += count * _combo;
+	combo = _combo;
 }
 
 void Game::GetInstruction(char instruction) {
 	if (!new_block.Action(instruction)) {
 		this->DownNewBlock();
-		new_block = next_block;
-	}
-		
+		if(block_left)
+			new_block = next_block;
+		block_left--;
+	}	
 }
 
 void Game::DownNewBlock() {
@@ -151,6 +150,10 @@ void Game::DownNewBlock() {
 	
 }
 
+int Game::GetScore() {
+	return score;
+}
+
 ostream &operator<<(ostream &os, Game &game) {
     os << " -------------";
     os << " -------STAGE " << game.stage << "------- ";
@@ -166,7 +169,9 @@ ostream &operator<<(ostream &os, Game &game) {
 	for (int i = 0; i < WIDTH; i++)
 	{
 		os << " ";
-		if (first_x == 0 && first_y == i)
+		if (game.block_left == -1) 
+			os << " ";
+		else if (first_x == 0 && first_y == i)
 			os << first_color;
 		else if (second_x == 0 && second_y == i)
 			os << second_color;
@@ -179,7 +184,9 @@ ostream &operator<<(ostream &os, Game &game) {
 	for (int i = 0; i < WIDTH; i++)
 	{
 		os << " ";
-		if (first_x == 1 && first_y == i)
+		if (game.block_left == -1)
+			os << " ";
+		else if (first_x == 1 && first_y == i)
 			os << first_color;
 		else if (second_x == 1 && second_y == i)
 			os << second_color;
@@ -196,15 +203,35 @@ ostream &operator<<(ostream &os, Game &game) {
         os << "|";
         switch (i) {
             case 0:
-                os << " combo : " << game.combo << "           |";
+				os << " Max combo : " << game.combo;
+				for (size_t i = 0; i < 8 - to_string(game.combo).length(); i++)
+				{
+					os << " ";
+				}
+				os << "|";
                 os << endl;
                 break;
             case 1:
-                os << " score : " << game.score << "           |";
+				os << " score : " << game.score;
+				for (size_t i = 0; i < 12 - to_string(game.score).length(); i++)
+				{
+					os << " ";
+				}
+				os << "|";
                 os << endl;
                 break;
             case 2:
-                os << " block left : " << game.block_left << "     |";
+				if (game.block_left >= 0) {
+					os << " block left : " << game.block_left;
+					for (size_t i = 0; i < 7 - to_string(game.block_left).length(); i++)
+					{
+						os << " ";
+					}
+					os << "|";
+				}
+				else {
+					os << " block left : 0      |";
+				}
                 os << endl;
                 break;
             case 5:
@@ -212,8 +239,12 @@ ostream &operator<<(ostream &os, Game &game) {
                 os << endl;
                 break;
             case 6:
-                os << "         "<< game.next_block.FirstColor() << " " 
+				if (game.block_left <= 0) {
+					os << "     end             |";
+				}else {
+					os << "         "<< game.next_block.FirstColor() << " " 
 					<< game.next_block.SecondColor() << "         |";
+				}
                 os << endl;
                 break;
             case 9:
@@ -243,5 +274,5 @@ ostream &operator<<(ostream &os, Game &game) {
 
 
 Game::~Game() {
-
+	
 }

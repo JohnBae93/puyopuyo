@@ -25,9 +25,10 @@ public:
     void AddBlock(Block block);
     void AddNextBlock(Block block);
     int Bomb();
-    void Down();
+    void Down(int combo);
 	void GetInstruction(char instruction);
 	void DownNewBlock();
+	int GetScore();
     friend ostream &operator<<(ostream &os, Game &map);
     ~Game();
 };
