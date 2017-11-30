@@ -18,6 +18,7 @@ private:
     int combo;
     int score;
     int block_left;
+	int max_combo;
     Block new_block;
     Block next_block;
 public:

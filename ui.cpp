@@ -15,7 +15,8 @@ Game::Game(int _stage) {
     stage = _stage;
     combo = 0;
     score = 0;
-    block_left = 1;
+    block_left = 35;
+	max_combo = 0;
 }
 
 void Game::AddBlock(Block block) {
@@ -98,6 +99,8 @@ void Game::Down(int _combo) {
 	}
 	score += count * _combo;
 	combo = _combo;
+	if (combo > max_combo)
+		max_combo = 0;
 }
 
 void Game::GetInstruction(char instruction) {
@@ -203,8 +206,8 @@ ostream &operator<<(ostream &os, Game &game) {
         os << "|";
         switch (i) {
             case 0:
-				os << " Max combo : " << game.combo;
-				for (size_t i = 0; i < 8 - to_string(game.combo).length(); i++)
+				os << " Max combo : " << game.max_combo;
+				for (size_t i = 0; i < 8 - to_string(game.max_combo).length(); i++)
 				{
 					os << " ";
 				}
@@ -274,5 +277,7 @@ ostream &operator<<(ostream &os, Game &game) {
 
 
 Game::~Game() {
-	
+	cout << "[CLEAR] stage " << stage << endl;
+	cout << "[MAX COMBO] " << combo << endl;
+	cout << "[SCORE] " << score << endl << endl;;
 }

@@ -111,10 +111,10 @@ void Block::SetBlock(int first, int second) {
 void Block::SetBlock(Block*A) {
 	first_puyo[0] = 2;
 	first_puyo[1] = 0;
-	first_puyo[2] = A->FirstColor;
+	first_puyo[2] = A->FirstColor();
 	second_puyo[0] = 3;
 	second_puyo[1] = 0;
-	second_puyo[2] = A->SecondColor;
+	second_puyo[2] = A->SecondColor();
 }
 
 ostream& operator<<(ostream& os, Block& block) {
@@ -153,5 +153,5 @@ Block Blocks::Next() {
 	current += 1;
 	cur->SetBlock(nex);
 	nex->SetBlock(puyos[current + 1][0], puyos[current + 1][1]);
-	return *nex;
+	return *cur;
 }

@@ -35,7 +35,6 @@ public:
 };
 
 class Blocks {
-	int number = 36;
 	int puyos[50][2];
 	int current;
 	Block *cur;

@@ -54,7 +54,7 @@ int main() {
 							Blocks stage(stage_num); // 블록들을 file에서 읽어온다
 							Block current;
 							Block next;
-							for (size_t i = 0; i < 2; i++)
+							for (size_t i = 0; i < 36; i++)
 							{
 								current = stage.Current();
 								if(i != 35)
@@ -68,10 +68,9 @@ int main() {
 									cout << game << endl;
 									cout << "INPUT instructino: ";
 									cin >> inst;
-									if (inst != 'w' && inst != 'a' && inst != 's' && inst != 'd') {
-										cout << "\nPlsease valid instruction" << endl;
+									if (inst != 'w' && inst != 'a' && inst != 's' && inst != 'd') 
 										continue;
-									}
+									
 									game.GetInstruction(inst);
 
 									system("CLS");
@@ -89,7 +88,6 @@ int main() {
 									system("CLS");
 									cout << game << endl;
 								}
-								cout << game << endl;
 							}
 							continue;	
 						}
