@@ -86,17 +86,15 @@ ostream& operator<<(ostream& os, Block& block) {
 
 
 Blocks::Blocks(int stage) {
-	string fname = "stage" + to_string(stage) + ".txt";
 	ifstream inFile;
+	string fname = "stage" + to_string(stage) + ".txt";
 	inFile.open(fname);
 	if (!inFile.is_open()) {
-		cout << fname << " not in directory" << endl;
-		throw -1;
+		throw fname;
 	}
 	int i = 0;
 	string temp;
-	while (!inFile.eof()) {
-		getline(inFile, temp);
+	while (getline(inFile, temp)) {
 		puyos[i][0] = temp[0] - '0';
 		puyos[i++][1] = temp[2] - '0';
 	}

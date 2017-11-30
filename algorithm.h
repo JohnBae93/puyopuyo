@@ -33,7 +33,7 @@ public:
 
 class Blocks {
 	int number = 36;
-	int puyos[36][2];
+	int puyos[50][2];
 	int current;
 
 public:
