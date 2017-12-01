@@ -2,7 +2,7 @@
 // Created by John on 2017-11-17.
 //
 
-#include "algorithm.h"
+#include "block.h"
 
 Block::Block() {
 	first_puyo[0] = 2;
@@ -155,5 +155,6 @@ Block Blocks::Next() {
 	current += 1;
 	cur->SetBlock(*nex);
 	nex->SetBlock(puyos[current + 1][0], puyos[current + 1][1]);
+	//오버로딩 예시
 	return *cur;
 }

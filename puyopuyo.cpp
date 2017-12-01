@@ -5,8 +5,8 @@
 #include <iostream>
 #include <windows.h>
 
-#include "algorithm.h"
-#include "ui.h"
+#include "block.h"
+#include "game.h"
 
 using namespace std;
 
@@ -71,7 +71,10 @@ int main() {
 									if (inst != 'w' && inst != 'a' && inst != 's' && inst != 'd') 
 										continue;
 									
-									game.GetInstruction(inst);
+									if (game.GetInstruction(inst) == 0) {
+										cout << "[GAME OVER]" << endl;
+										exit(1);
+									}
 
 									system("CLS");
 									cout << game << endl;
