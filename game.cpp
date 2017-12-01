@@ -290,6 +290,6 @@ ostream &operator<<(ostream &os, Game &game) {
 
 Game::~Game() {
 	cout << "[CLEAR] stage " << stage << endl;
-	cout << "[MAX COMBO] " << combo << endl;
+	cout << "[MAX COMBO] " << max_combo << endl;
 	cout << "[SCORE] " << score << endl << endl;;
 }
