@@ -152,5 +152,5 @@ Block Blocks::Next() {
 	cur->SetBlock(*nex);
 	nex->SetBlock(puyos[current + 1][0], puyos[current + 1][1]);
 	//오버로딩 예시
-	return *nex;
+	return *cur;
 }

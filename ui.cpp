@@ -103,16 +103,18 @@ void Game::Down(int _combo) {
 		max_combo = combo;
 }
 
-void Game::GetInstruction(char instruction) {
+int Game::GetInstruction(char instruction) {
 	if (!new_block.Action(instruction)) {
-		this->DownNewBlock();
+		if (this->DownNewBlock() == 0)
+			return 0; // fail to down. game over;
 		if(block_left)
 			new_block = next_block;
 		block_left--;
 	}	
+	return 1;
 }
 
-void Game::DownNewBlock() {
+int Game::DownNewBlock() {
 	int first_x = new_block.FirstX();
 	int first_y = new_block.FirstY();
 	int first_color = new_block.FirstColor();
@@ -122,8 +124,12 @@ void Game::DownNewBlock() {
 
 	if (first_y == second_y) {
 		int bottom = first_x > second_x ? 0 : 1; // first bottom: 0, second bottom : 1
-		for (int i = 0; i <= HEIGHT; i++)
+		if (map[0][first_y] != 0) {
+			return 0;
+		}
+		for (int i = 1; i <= HEIGHT; i++)
 		{
+			
 			if ((i == HEIGHT || map[i][first_y] != 0) && bottom == 0) { // first block at bottom
 				map[i - 1][first_y] = first_color;
 				map[i - 2][first_y] = second_color;
@@ -138,6 +144,12 @@ void Game::DownNewBlock() {
 	}
 	else {
 		int first = 0, second = 0;
+		if (map[0][first_y] != 0) {
+			return 0;
+		}
+		if (map[0][second_y] != 0) {
+			return 0;
+		}
 		for (int i = 0; i <= HEIGHT; i++)
 		{
 			if (first == 0 && (i == HEIGHT || map[i][first_y] != 0)) {
@@ -150,7 +162,7 @@ void Game::DownNewBlock() {
 			}
 		}
 	}
-	
+	return 1;	
 }
 
 int Game::GetScore() {

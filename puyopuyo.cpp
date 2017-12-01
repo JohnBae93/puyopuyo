@@ -71,7 +71,10 @@ int main() {
 									if (inst != 'w' && inst != 'a' && inst != 's' && inst != 'd') 
 										continue;
 									
-									game.GetInstruction(inst);
+									if (game.GetInstruction(inst) == 0) {
+										cout << "[GAME OVER]" << endl;
+										exit(1);
+									}
 
 									system("CLS");
 									cout << game << endl;
