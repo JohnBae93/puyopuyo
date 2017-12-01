@@ -1,7 +1,7 @@
 #include <iostream>
 #include <queue>
 
-#include "ui.h"
+#include "game.h"
 
 int mx[4] = {0, -1, 0, 1};
 int my[4] = {1, 0, -1, 0};

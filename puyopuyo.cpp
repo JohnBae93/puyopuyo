@@ -5,8 +5,8 @@
 #include <iostream>
 #include <windows.h>
 
-#include "algorithm.h"
-#include "ui.h"
+#include "block.h"
+#include "game.h"
 
 using namespace std;
 

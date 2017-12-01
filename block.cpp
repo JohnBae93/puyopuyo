@@ -2,7 +2,7 @@
 // Created by John on 2017-11-17.
 //
 
-#include "algorithm.h"
+#include "block.h"
 
 Block::Block() {
 	first_puyo[0] = 2;

@@ -5,7 +5,7 @@
 #ifndef TERM_UI_H
 #define TERM_UI_H
 
-#include "algorithm.h"
+#include "block.h"
 using namespace std;
 
 #define HEIGHT 12
