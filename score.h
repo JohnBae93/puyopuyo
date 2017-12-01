@@ -2,8 +2,8 @@
 // Created by hong on 2017-12-01.
 //
 
-#ifndef TERM_ALGORITHM_H
-#define TERM_ALGORITHM_H
+#ifndef TERM_SCORE_H
+#define TERM_SCORE_H
 
 #include <iostream>
 #include <fstream>
@@ -20,28 +20,30 @@ protected:
 	T combo;
 
 public:
+	Score();
 	Score(T c, T s, string n);
 	virtual void ShowScore();
 	T GetScore();
 	T GetCombo();
+	void SetScore(T sco);
+	void SetCombo(T com);
+	void SetName(string n);
 };
 
-template <typename T>
-class AvgScore : public Score{
+class AvgScore : public Score<double>{
 public:
-	AvgScore(Score* sco, int n);
+	AvgScore(Score<int>* sco, int n);
 	void ShowScore();
 };
 
-template <typename T>
+
 class Scores {
 	int sconum;
-	Score* sco;
-
+	Score<int>* sco;
 public:
-	Scores();
+	Scores(int k);
 	~Scores();
-	void AddScore(Score s);
+	void AddScore(Score<int> s);
 	void ShowScores();
 };
 
