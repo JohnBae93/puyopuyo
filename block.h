@@ -2,8 +2,8 @@
 // Created by John on 2017-11-17.
 //
 
-#ifndef TERM_ALGORITHM_H
-#define TERM_ALGORITHM_H
+#ifndef TERM_BLOCK_H
+#define TERM_BLOCK_H
 
 #include <iostream>
 #include <fstream>

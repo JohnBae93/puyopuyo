@@ -3,12 +3,13 @@
 //
 
 #include "score.h"
-#include <sstream>
+
 
 template <typename T>
 Score<T>::Score() {
 	combo = 0;
 	score = 0;
+	name = "none";
 }
 
 template <typename T>
@@ -19,16 +20,23 @@ Score<T>::Score(T c, T s, string n) {
 }
 
 template <typename T>
+Score<T>::Score(const Score<T> &A) {
+	combo = A.GetCombo();
+	score = A.GetScore();
+	name = A.GetName();
+}
+
+template <typename T>
 void Score<T>::ShowScore() {
 	int score_len = to_string(score).length();
 	int name_len = name.length();
 	cout << name;
-	for (size_t i = 0; i < 15 - name_len; i++)
+	for (int i = 0; i < 15 - name_len; i++)
 	{
 		cout << " ";
 	}
 	cout << to_string(score);
-	for (size_t i = 0; i < 17 - score_len; i++)
+	for (int i = 0; i < 17 - score_len; i++)
 	{
 		cout << " ";
 	}
@@ -38,13 +46,18 @@ void Score<T>::ShowScore() {
 }
 
 template <typename T>
-T Score<T>::GetScore() {
+T Score<T>::GetScore() const {
 	return score;
 }
 
 template <typename T>
-T Score<T>::GetCombo() {
+T Score<T>::GetCombo() const {
 	return combo;
+}
+
+template <typename T>
+string Score<T>::GetName() const {
+	return name;
 }
 
 template <typename T>
@@ -60,6 +73,13 @@ void Score<T>::SetCombo(T com) {
 template <typename T>
 void Score<T>::SetName(string n) {
 	name = n;
+}
+
+template <typename T>
+void Score<T>::Set(Score<T> A) {
+	name = A.GetName();
+	combo = A.GetCombo();
+	score = A.GetScore();
 }
 
 AvgScore::AvgScore(Score<int>* sco, int n){
@@ -78,7 +98,7 @@ void AvgScore::ShowScore() {
 	int combo_len = to_string(combo).length();
 	cout << "Averge :             ";
 	cout << to_string(score);
-	for (size_t i = 0; i < 17 - score_len; i++)
+	for (int i = 0; i < 17 - score_len; i++)
 	{
 		cout << " ";
 	} 
@@ -102,6 +122,7 @@ Scores::Scores(int stage) {
 	ss.str(temp);
 	ss >> number;
 	sconum = number;
+	cout << number;
 	sco = new Score<int>[sconum];
 	for (int i = 0; i < sconum; i++) {
 		ss.clear();
@@ -112,7 +133,7 @@ Scores::Scores(int stage) {
 		sco[i].SetScore(score);
 		sco[i].SetCombo(combo);
 	}
-
+	inFile.close();
 }
 
 Scores::~Scores() {
@@ -122,6 +143,7 @@ Scores::~Scores() {
 void Scores::AddScore(Score<int> s, int stage) {
 	if (sconum == 10) {
 		if (sco[9].GetScore() > s.GetScore()) {
+			ShowScores();
 			cout << "순위에 들지 못했습니다. 다음 기회에..." << endl;
 			return;
 		}
@@ -135,16 +157,29 @@ void Scores::AddScore(Score<int> s, int stage) {
 	}
 	for (int i = sconum - 1; i >0; i--) {
 		if (sco[i-1].GetScore() > s.GetScore()) {
-			sco[i] = s;
+			sco[i].Set(s);
 			break;
 		}
 		else {
-			sco[i] = sco[i - 1];
+			sco[i].Set(sco[i - 1]);
+		}
+
+		if (i == 1) {
+			sco[0].Set(s);
 		}
 	}
-
-
-
+	ShowScores();
+	ofstream outFile;
+	string filename = "ScoreBoard" + to_string(stage) + ".txt";
+	outFile.open(filename);
+	if (!outFile.is_open()) {
+		throw filename;
+	}
+	outFile << sconum << endl;
+	for (int i = 0; i < sconum; i++) {
+		outFile << sco[i].GetName() << " " << sco[i].GetScore() << " " << sco[i].GetCombo() << endl;
+	}
+	outFile.close();
 	return;
 }
 

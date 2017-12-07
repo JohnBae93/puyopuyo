@@ -63,23 +63,26 @@ int main() {
 
 								game.AddBlock(current);
 								game.AddNextBlock(next);
-
+								int over = 0;
 								do {
 									system("CLS");
 									cout << game << endl;
-									cout << "INPUT instructino: ";
+									cout << "INPUT instruction: ";
 									cin >> inst;
 									if (inst != 'w' && inst != 'a' && inst != 's' && inst != 'd') 
 										continue;
 									
 									if (game.GetInstruction(inst) == 0) {
 										cout << "[GAME OVER]" << endl;
-										exit(1);
+										over = 1;
+										break;
 									}
 									system("CLS");
 									cout << game << endl;
 								} while (inst != 's');
-
+								if (over == 1) {
+									break;
+								}
 								// combo bomb
 								int combo = 1;
 								while (game.Bomb()) {
