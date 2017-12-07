@@ -119,13 +119,32 @@ Scores::~Scores() {
 	delete []sco;
 }
 
-void Scores::AddScore(Score<int> s) {
-	sconum += 1;
-	Score<int>* newsco = new Score<int>[sconum];
-	memcpy(newsco, sco, (sconum - 1) * sizeof(Score<int>));
-	delete[]sco;
-	sco = newsco;
-	sco[sconum - 1] = s;
+void Scores::AddScore(Score<int> s, int stage) {
+	if (sconum == 10) {
+		if (sco[9].GetScore() > s.GetScore()) {
+			cout << "순위에 들지 못했습니다. 다음 기회에..." << endl;
+			return;
+		}
+	}
+	else {
+		sconum += 1;
+		Score<int>* newsco = new Score<int>[sconum];
+		memcpy(newsco, sco, (sconum - 1) * sizeof(Score<int>));
+		delete[]sco;
+		sco = newsco;
+	}
+	for (int i = sconum - 1; i >0; i--) {
+		if (sco[i-1].GetScore() > s.GetScore()) {
+			sco[i] = s;
+			break;
+		}
+		else {
+			sco[i] = sco[i - 1];
+		}
+	}
+
+
+
 	return;
 }
 

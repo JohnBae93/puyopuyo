@@ -43,7 +43,7 @@ class Scores {
 public:
 	Scores(int k);
 	~Scores();
-	void AddScore(Score<int> s);
+	void AddScore(Score<int> s, stage);
 	void ShowScores();
 };
 
