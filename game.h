@@ -13,12 +13,12 @@ using namespace std;
 
 class Game{
 private:
-    int stage;
     int map[HEIGHT][WIDTH];  // [12][6]
+	int stage;
     int combo;
+	int max_combo;
     int score;
     int block_left;
-	int max_combo;
     Block new_block;
     Block next_block;
 public:
