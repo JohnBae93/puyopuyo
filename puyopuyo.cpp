@@ -7,6 +7,7 @@
 
 #include "block.h"
 #include "game.h"
+#include "score.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ int main() {
 	while (1) {
 		string option;
 		cout << "1: start game" << endl;
-		cout << "2: view rank" << endl;
+		cout << "2: view history" << endl;
 		cout << "0: end" << endl;
 		cout << "input: ";
 		cin >> option;
@@ -25,8 +26,8 @@ int main() {
 			continue;
 		}
 		char opn = option[0];
+		int gomenu = 0;
 		if (opn == '1') {
-			int gomenu = -1;
 			while (1) {
 				string input;
 				cout << "*Choose Stage*" << endl;
@@ -38,7 +39,7 @@ int main() {
 				char opt;
 				system("CLS");
 				if (input.length() != 1) {
-					cout << "[Error] Wrong input! Please choose number in 1~6!" << endl;
+					cout << "[Error] Wrong input! Please choose number in 0~6!" << endl;
 					continue;
 				}
 				else {
@@ -104,13 +105,48 @@ int main() {
 						continue;
 					}
 				}
-				gomenu = 0;
 				break;
 			}
-			if (gomenu == 1) { continue; }
 		}
 		else if (opn == '2') {
-
+			while (1) {
+				string input;
+				cout << "*Choose Stage to See*" << endl;
+				cout << "1~6: See stage" << endl;
+				cout << "  0: Go back to Main menu" << endl;
+				cout << "Select stage: ";
+				cin >> input;
+				char opt;
+				system("CLS");
+				if (input.length() != 1) {
+					cout << "[Error] Wrong input! Please choose number in 0~6!" << endl;
+					continue;
+				}
+				else {
+					opt = input[0];
+					if (opt == '0') {
+						gomenu = 1;
+						break;
+					}
+					else if (opt < '7' && opt >'0') {
+						try {
+							Scores k(opt-'0');
+							k.ShowScores();
+							cout << "Please enter anything to continue...";
+							cin >> input;
+							system("CLS");
+							continue;
+						}
+						catch (string str) {
+							cout << "[Error] File '" << str << "' is not in directory" << endl;
+						}
+					}
+					else {
+						cout << "[Error] Wrong input! Please choose number in 0~6!" << endl;
+						continue;
+					}
+				}
+			}
 		}
 		else if (opn == '0') {
 			cout << "Bye Bye" << endl;
@@ -120,6 +156,8 @@ int main() {
 			cout << "[Error] Wrong input! Please check you input!" << endl;
 			continue;
 		}
+
+		if (gomenu == 1) { continue; }
 		break;
 	}
 	return 0;
