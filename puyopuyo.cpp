@@ -15,10 +15,19 @@ int main() {
 	char inst;
 	while (1) {
 		string option;
-		cout << "1: start game" << endl;
-		cout << "2: view history" << endl;
-		cout << "0: end" << endl;
-		cout << "input: ";
+		cout << "-----------PuyoPuyo Remaster------------" << endl;
+		cout << "|                                      |" << endl;
+		cout << "| made by. jhong, john                 |" << endl;
+		cout << "|                                      |" << endl;
+		cout << "|                                      |" << endl;
+		cout << "| *Main Menu*                          |" << endl;
+		cout << "|                                      |" << endl;
+		cout << "| 1: Start game                        |" << endl;
+		cout << "| 2: View rank                         |" << endl;
+		cout << "| 0: End                               |" << endl;
+		cout << "|                                      |" << endl;
+		cout << "----------------------------------------" << endl << endl;
+		cout << "input:";
 		cin >> option;
 		system("CLS");
 		if (option.length() != 1) {
@@ -30,11 +39,19 @@ int main() {
 		if (opn == '1') {
 			while (1) {
 				string input;
-				cout << "*Choose Stage*" << endl;
-				cout << "1~3: Easy stage" << endl;
-				cout << "4~6: Expert stage" << endl;
-				cout << "  0: Go back to Main menu" << endl;
-				cout << "Select stage: ";
+				cout << "-----------PuyoPuyo Remaster------------" << endl;
+				cout << "|                                      |" << endl;
+				cout << "| made by. jhong, john                 |" << endl;
+				cout << "|                                      |" << endl;
+				cout << "|                                      |" << endl;
+				cout << "| *Choose Stage*                       |" << endl;
+				cout << "|                                      |" << endl;
+				cout << "| 1~3: Easy stage                      |" << endl;
+				cout << "| 4~6: Expert stage                    |" << endl;
+				cout << "| 0  : Go back to Main menu            |" << endl;
+				cout << "|                                      |" << endl;
+				cout << "----------------------------------------" << endl << endl;
+				cout << "input: ";
 				cin >> input;
 				char opt;
 				system("CLS");
@@ -114,10 +131,19 @@ int main() {
 		else if (opn == '2') {
 			while (1) {
 				string input;
-				cout << "*Choose Stage to See*" << endl;
-				cout << "1~6: See stage" << endl;
-				cout << "  0: Go back to Main menu" << endl;
-				cout << "Select stage: ";
+				cout << "-----------PuyoPuyo Remaster------------" << endl;
+				cout << "|                                      |" << endl;
+				cout << "| made by. jhong, john                 |" << endl;
+				cout << "|                                      |" << endl;
+				cout << "|                                      |" << endl;
+				cout << "| *View Rank*                          |" << endl;
+				cout << "|                                      |" << endl;
+				cout << "| 1~6: See rank of stage               |" << endl;
+				cout << "| 0  : Go back to Main menu            |" << endl;
+				cout << "|                                      |" << endl;
+				cout << "|                                      |" << endl;
+				cout << "----------------------------------------" << endl << endl;
+				cout << "input: ";
 				cin >> input;
 				char opt;
 				system("CLS");
@@ -152,7 +178,18 @@ int main() {
 			}
 		}
 		else if (opn == '0') {
-			cout << "Bye Bye" << endl;
+			cout << "-----------PuyoPuyo Remaster------------" << endl;
+			cout << "|                                      |" << endl;
+			cout << "|                                      |" << endl;
+			cout << "|                                      |" << endl;
+			cout << "|         made by. jhong, john         |" << endl;
+			cout << "|                                      |" << endl;
+			cout << "|             Game Ended               |" << endl;
+			cout << "|                                      |" << endl;
+			cout << "|                                      |" << endl;
+			cout << "|                                      |" << endl;
+			cout << "|                                      |" << endl;
+			cout << "----------------------------------------" << endl << endl;
 			return 0;
 		}
 		else {
