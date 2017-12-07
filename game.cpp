@@ -289,7 +289,29 @@ ostream &operator<<(ostream &os, Game &game) {
 
 
 Game::~Game() {
-	cout << "[CLEAR] stage " << stage << endl;
+	cout << endl << "-----  stage " << stage << " -----" << endl;
 	cout << "[MAX COMBO] " << max_combo << endl;
 	cout << "[SCORE] " << score << endl << endl;
+	cout << "Enter your name: ";
+	string name;
+	cin >> name;
+	system("CLS");
+
+	Score<int> s;
+	s.SetScore(score);
+	s.SetName(name);
+	s.SetCombo(max_combo);
+	try {
+		Scores rank(stage);
+		rank.AddScore(s, stage);
+		cout << "Please enter anything to continue...";
+		cin >> name;
+		system("CLS");
+		return;
+	}
+	catch (string fname) {
+		cout << "[Error] File '" << fname
+			<< "' is not in directory!" << endl;
+	}
+
 }

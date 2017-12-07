@@ -29,7 +29,6 @@ Block::Block(const Block &A) {
 	second_puyo[0] = A.SecondY();
 	second_puyo[1] = A.SecondX();
 	second_puyo[2] = A.SecondColor();
-	
 }
 
 int Block::Action(char command) {

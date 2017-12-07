@@ -8,6 +8,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <windows.h>
 
 using namespace std;
 
@@ -22,12 +24,15 @@ protected:
 public:
 	Score();
 	Score(T c, T s, string n);
+	Score(const Score<T> &A);
 	virtual void ShowScore();
-	T GetScore();
-	T GetCombo();
+	T GetScore() const;
+	T GetCombo() const;
+	string GetName() const;
 	void SetScore(T sco);
 	void SetCombo(T com);
 	void SetName(string n);
+	void Set(Score<T> A);
 };
 
 class AvgScore : public Score<double>{

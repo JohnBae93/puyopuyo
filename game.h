@@ -2,10 +2,12 @@
 // Created by John on 2017-11-17.
 //
 
-#ifndef TERM_UI_H
-#define TERM_UI_H
+#ifndef TERM_GAME_H
+#define TERM_GAME_H
 
 #include "block.h"
+#include "score.h"
+
 using namespace std;
 
 #define HEIGHT 12
