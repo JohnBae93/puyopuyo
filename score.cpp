@@ -41,7 +41,6 @@ void Score<T>::ShowScore() {
 		cout << " ";
 	}
 	cout << to_string(combo);
-	cout << endl;
 	return;
 }
 
@@ -122,7 +121,6 @@ Scores::Scores(int stage) {
 	ss.str(temp);
 	ss >> number;
 	sconum = number;
-	cout << number;
 	sco = new Score<int>[sconum];
 	for (int i = 0; i < sconum; i++) {
 		ss.clear();
@@ -185,11 +183,16 @@ void Scores::AddScore(Score<int> s, int stage) {
 
 void Scores::ShowScores() {
 	AvgScore Avg(sco, sconum);
-	cout << "      name           score            combo" << endl;
+	cout << "-----------------Rank Scores--------------------" << endl;
+	cout << "                                              " << endl;
+	cout << "       name           score            combo  " << endl;
 	for (int i = 1; i <= sconum; i++) {
+		cout << " ";
 		cout << i << ".    ";
 		sco[i - 1].ShowScore();
+		cout <<endl;
 	}
 	Avg.ShowScore();
+	cout << endl;
 	return;
 }

@@ -296,7 +296,9 @@ Game::~Game() {
 	string name;
 	cin >> name;
 	system("CLS");
-
+	if (name.length() > 10) {
+		name = name.substr(0, 9);
+	}
 	Score<int> s;
 	s.SetScore(score);
 	s.SetName(name);
