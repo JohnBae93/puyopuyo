@@ -54,4 +54,4 @@ public:
 
 
 #else
-#endif //TERM_ALGORITHM_H
+#endif
