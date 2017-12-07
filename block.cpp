@@ -7,10 +7,10 @@
 Block::Block() {
 	first_puyo[0] = 2;
 	first_puyo[1] = 0;
-	first_puyo[2] = 0;
+	first_puyo[2] = 1;
 	second_puyo[0] = 3;
 	second_puyo[1] = 0;
-	second_puyo[2] = 0;
+	second_puyo[2] = 1;
 }
 Block::Block(int first, int second) {
 	first_puyo[0] = 2;
@@ -27,6 +27,7 @@ Block::Block(const Block &A) {
 	second_puyo[0] = A.SecondY();
 	second_puyo[1] = A.SecondX();
 	second_puyo[2] = A.SecondColor();
+	
 }
 
 int Block::Action(char command) {
@@ -112,11 +113,6 @@ void Block::SetBlock(Block A) {
 
 Block Block::GetThis() {
 	return *this;
-}
-
-ostream& operator<<(ostream& os, Block& block) {
-	os << to_string(block.FirstColor()) + " " + to_string(block.SecondColor());
-	return os;
 }
 
 

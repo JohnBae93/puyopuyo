@@ -50,15 +50,15 @@ int main() {
 					else if ( opt <= '6' && opt >= '1') {
 						try {
 							int stage_num = opt - '0';
+							Blocks blocks(stage_num); // 블록들을 file에서 읽어온다
 							Game game(stage_num);
-							Blocks stage(stage_num); // 블록들을 file에서 읽어온다
 							Block current;
 							Block next;
 							for (size_t i = 0; i < 36; i++)
 							{
-								current = stage.Current();
+								current = blocks.Current();
 								if(i != 35)
-									next = stage.Next();
+									next = blocks.Next();
 
 								game.AddBlock(current);
 								game.AddNextBlock(next);
@@ -75,7 +75,6 @@ int main() {
 										cout << "[GAME OVER]" << endl;
 										exit(1);
 									}
-
 									system("CLS");
 									cout << game << endl;
 								} while (inst != 's');
@@ -95,7 +94,8 @@ int main() {
 							continue;	
 						}
 						catch (string fname) {
-							cout << "[Error] File '" << fname << "' is not in directory!" << endl;
+							cout << "[Error] File '" << fname 
+								<< "' is not in directory!" << endl;
 							continue;
 						}
 					}
@@ -122,10 +122,7 @@ int main() {
 		}
 		break;
 	}
-	
-	
 	return 0;
-
 }
 
 
