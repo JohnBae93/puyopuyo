@@ -23,12 +23,12 @@ void Score<T>::ShowScore() {
 	int score_len = to_string(score).length();
 	int name_len = name.length();
 	cout << name;
-	for (size_t i = 0; i < 15 - name_len; i++)
+	for (int i = 0; i < 15 - name_len; i++)
 	{
 		cout << " ";
 	}
 	cout << to_string(score);
-	for (size_t i = 0; i < 17 - score_len; i++)
+	for (int i = 0; i < 17 - score_len; i++)
 	{
 		cout << " ";
 	}
@@ -78,7 +78,7 @@ void AvgScore::ShowScore() {
 	int combo_len = to_string(combo).length();
 	cout << "Averge :             ";
 	cout << to_string(score);
-	for (size_t i = 0; i < 17 - score_len; i++)
+	for (int i = 0; i < 17 - score_len; i++)
 	{
 		cout << " ";
 	} 

@@ -43,10 +43,10 @@ class Scores {
 public:
 	Scores(int k);
 	~Scores();
-	void AddScore(Score<int> s, stage);
+	void AddScore(Score<int> s, int stage);
 	void ShowScores();
 };
 
 
 #else
-#endif //TERM_ALGORITHM_H
+#endif
